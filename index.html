@@ -1,148 +1,353 @@
-<html><!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شحن شدات PUBG</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: url('https://example.com/pubg-background.jpg') no-repeat center center/cover;
-            color: #fff;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>شحن شدات ببجي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* إعدادات عامة */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Cairo", Arial, sans-serif;
+      background: #111;
+      color: white;
+      line-height: 1.6;
+      padding: 0 20px;
+    }
 
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        }
+    /* تصميم الشريط العلوي */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background: linear-gradient(45deg, #ff007c, #00c8ff);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .navbar .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      color: white;
+    }
+    .navbar .nav-links {
+      display: flex;
+    }
+    .navbar .nav-links a {
+      color: white;
+      text-decoration: none;
+      margin-left: 15px;
+      font-size: 1.1rem;
+      transition: color 0.3s;
+    }
+    .navbar .nav-links a:hover {
+      color: #00c8ff;
+    }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 2.5em;
-            color: #FFD700;
-        }
+    /* تصميم الصفحة الرئيسية */
+    .hero-section {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: url('https://via.placeholder.com/1920x1080') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      text-align: center;
+      position: relative;
+      animation: fadeIn 3s ease-in-out;
+    }
+    .hero-section h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      animation: fadeIn 2s ease-in-out;
+    }
+    .hero-section p {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+      animation: fadeIn 3s ease-in-out;
+    }
+    .hero-btn {
+      background: linear-gradient(45deg, #ff007c, #00c8ff);
+      padding: 20px 40px;
+      font-size: 1.5rem;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .hero-btn:hover {
+      transform: scale(1.1);
+    }
 
-        .input-group {
-            margin-bottom: 15px;
-        }
+    /* تصميم الجدول */
+    .pricing-table {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 50px;
+    }
+    .pricing-card {
+      background: rgba(255, 255, 255, 0.1);
+      margin: 20px;
+      padding: 30px;
+      border-radius: 10px;
+      width: 250px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .pricing-card:hover {
+      transform: scale(1.05);
+    }
+    .pricing-card h3 {
+      font-size: 1.5rem;
+      color: #ff007c;
+      margin-bottom: 15px;
+    }
+    .pricing-card p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+    .pricing-card button {
+      background: linear-gradient(45deg, #ff007c, #00c8ff);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .pricing-card button:hover {
+      background: #ff007c;
+    }
 
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 1.1em;
-        }
+    /* تأثيرات الانتقال */
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(50px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
 
-        input, select {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0 10px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1em;
-        }
+    /* النوافذ المنبثقة */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal.active {
+      display: flex;
+    }
+    .modal-content {
+      background: #333;
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+    .close-btn {
+      color: white;
+      background: transparent;
+      font-size: 2rem;
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      cursor: pointer;
+    }
 
-        .packages {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
+    /* تحسين تصميم التفاعل */
+    .input-group {
+      margin-bottom: 20px;
+    }
+    .input-group label {
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+      color: #fff;
+    }
+    .input-group input, 
+    .input-group select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 5px;
+      background-color: #222;
+      border: 1px solid #444;
+      color: white;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    .input-group input:focus, 
+    .input-group select:focus {
+      border-color: #ff007c;
+    }
 
-        .package {
-            width: 48%;
-            margin-bottom: 15px;
-            padding: 15px;
-            text-align: center;
-            background: #333;
-            border: 2px solid #FFD700;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.3s, background 0.3s;
-        }
-
-        .package:hover {
-            transform: scale(1.05);
-            background: #444;
-        }
-
-        .package span {
-            display: block;
-            font-size: 1.2em;
-            margin-top: 5px;
-        }
-
-        .button {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            font-size: 1.2em;
-            text-align: center;
-            color: #fff;
-            background: #FFD700;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .button:hover {
-            background: #FFC107;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.9em;
-            color: #ccc;
-        }
-    </style>
+    /* تصميم التذييل */
+    .footer {
+      background: #111;
+      padding: 30px;
+      text-align: center;
+      margin-top: 50px;
+      color: #fff;
+    }
+    .social-links a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+    .social-links a:hover {
+      color: #ff007c;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>شحن شدات PUBG</h1>
-
-        <div class="input-group">
-            <label for="player-id">معرّف اللاعب</label>
-            <input type="text" id="player-id" placeholder="أدخل معرف اللاعب الخاص بك">
-        </div>
-
-        <div class="input-group">
-            <label for="platform">اختيار المنصة</label>
-            <select id="platform">
-                <option value="android">Android</option>
-                <option value="ios">iOS</option>
-            </select>
-        </div>
-
-        <h2>اختر الحزمة</h2>
-        <div class="packages">
-            <div class="package" data-package="60">
-                <strong>60 شدة</strong>
-                <span>$0.99</span>
-            </div>
-            <div class="package" data-package="180">
-                <strong>180 شدة</strong>
-                <span>$2.99</span>
-            </div>
-            <div class="package" data-package="600">
-                <strong>600 شدة</strong>
-                <span>$9.99</span>
-            </div>
-            <div class="package" data-package="1500">
-                <strong>1500 شدة</strong>
-                <span>$24.99</span>
-            </div>
-        </div>
-
-        <button class="button">شحن الآن</button>
-
-        <div class="footer">© 2024 حقوق الطبع والنشر محفوظة</div>
+  <!-- الشريط العلوي -->
+  <div class="navbar">
+    <div class="logo">شحن <span>شدات</span> ببجي</div>
+    <div class="nav-links">
+      <a href="#">الرئيسية</a>
+      <a href="#">الأسعار</a>
+      <a href="#">الدعم</a>
+      <a href="#">تسجيل الدخول</a>
     </div>
+  </div>
+
+  <!-- القسم الرئيسي -->
+  <div class="hero-section">
+    <div>
+      <h1>شحن شدات ببجي بسرعة وأمان</h1>
+      <p>شحن شدات بوبجي من خلال خيارات متنوعة وآمنة!</p>
+      <button class="hero-btn" onclick="showPricing()">ابدأ الآن</button>
+    </div>
+  </div>
+
+  <!-- قسم الشحن والخدمات -->
+  <div class="services-section" id="pricing-section">
+    <h2>خيارات الشحن</h2>
+    <div class="pricing-table">
+      <div class="pricing-card">
+        <h3>30 شدة</h3>
+        <p>السعر: 0.49 دينار</p>
+        <button onclick="openModal(0.49)">اختر</button>
+      </div>
+      <div class="pricing-card">
+        <h3>60 شدة</h3>
+        <p>السعر: 0.99 دينار</p>
+        <button onclick="openModal(0.99)">اختر</button>
+      </div>
+      <div class="pricing-card">
+        <h3>180 شدة</h3>
+        <p>السعر: 2.99 دينار</p>
+        <button onclick="openModal(2.99)">اختر</button>
+      </div>
+      <div class="pricing-card">
+        <h3>600 شدة</h3>
+        <p>السعر: 7.99 دينار</p>
+        <button onclick="openModal(7.99)">اختر</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- نافذة الدفع -->
+  <div id="payment-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h3>أدخل معلوماتك لإتمام عملية الدفع</h3>
+      <div class="input-group">
+        <label for="phone">رقم الهاتف:</label>
+        <input type="text" id="phone" placeholder="أدخل رقم الهاتف">
+      </div>
+      <div class="input-group">
+        <label for="playerId">إيدي اللاعب:</label>
+        <input type="text" id="playerId" placeholder="أدخل إيدي اللاعب">
+      </div>
+      <button onclick="initiatePayment()">إرسال</button>
+    </div>
+  </div>
+
+  <!-- التذييل -->
+  <div class="footer">
+    <p>&copy; 2024 شحن شدات ببجي. جميع الحقوق محفوظة.</p>
+    <div class="social-links">
+      <a href="#">فيسبوك</a>
+      <a href="#">تويتر</a>
+      <a href="#">إنستغرام</a>
+    </div>
+  </div>
+
+  <script>
+    // إظهار قسم الأسعار عند النقر على زر "ابدأ الآن"
+    function showPricing() {
+      document.getElementById('pricing-section').style.display = 'block';
+    }
+
+    // فتح نافذة الدفع
+    function openModal(price) {
+      document.getElementById('payment-modal').classList.add('active');
+      selectedPrice = price;
+    }
+
+    // إغلاق نافذة الدفع
+    function closeModal() {
+      document.getElementById('payment-modal').classList.remove('active');
+    }
+
+    // تفعيل عملية الدفع
+    let selectedPrice = 0;
+    function initiatePayment() {
+      let phoneNumber = document.getElementById('phone').value;
+      let playerId = document.getElementById('playerId').value;
+
+      // التأكد من صحة المدخلات
+      if (!phoneNumber || !playerId) {
+        alert("يرجى إدخال جميع البيانات بشكل صحيح.");
+        return;
+      }
+
+      // إرسال طلب الدفع إلى API (مثال)
+      fetch('https://api.paymentprovider.com/charge', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          phoneNumber: phoneNumber,
+          amount: selectedPrice,
+          serviceId: 'PUBG',
+          playerId: playerId
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'success') {
+          alert('تمت العملية بنجاح!');
+        } else {
+          alert('حدث خطأ أثناء العملية.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('حدث خطأ في الاتصال.');
+      });
+
+      // إغلاق النافذة بعد العملية
+      closeModal();
+    }
+  </script>
 </body>
-</html></html>
+</html>
